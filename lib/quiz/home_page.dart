@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responde_ai/quiz/quiz_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -17,7 +18,12 @@ class HomePage extends StatelessWidget {
               'Responde Ai!',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            _AppButton(text: 'Iniciar Quiz', onPressed: () {}),
+            _AppButton(
+              text: 'Iniciar Quiz',
+              onPressed: () {
+                Navigator.pushNamed(context, QuizPage.routeName);
+              },
+            ),
             _AppButton(text: 'Criar Quiz', onPressed: () {}),
           ],
         ),

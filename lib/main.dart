@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:responde_ai/quiz/home_page.dart';
+import 'package:responde_ai/quiz/quiz_page.dart';
+import 'package:responde_ai/shared/theme/app_theme.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const RespondeAiApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class RespondeAiApp extends StatelessWidget {
+  const RespondeAiApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-  
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const HomePage()
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomePage(),
+        QuizPage.routeName: (context) => const QuizPage(),
+      },
+      title: 'Responde Aí!',
+      theme: AppTheme.appTheme(context),
     );
   }
 }
