@@ -1,15 +1,9 @@
 class Quiz {
   final String id;
   final List<Question> questions;
-  final int correctQuantity;
   final String title;
 
-  Quiz({
-    required this.id,
-    required this.questions,
-    required this.correctQuantity,
-    required this.title,
-  });
+  Quiz({required this.id, required this.questions, required this.title});
 }
 
 class Question {
@@ -17,8 +11,14 @@ class Question {
   final String question;
   final List<Answer> answers;
   final bool isMultipleChoice;
- // TODO: Method to shuffle answers
-  Question( {required this.id, required this.question, required this.answers, required this.isMultipleChoice} );
+  // TODO: Method to shuffle answers
+
+  Question({
+    required this.id,
+    required this.question,
+    required this.answers,
+    required this.isMultipleChoice,
+  });
 }
 
 class Answer {
@@ -28,4 +28,3 @@ class Answer {
 
   Answer({required this.id, required this.answer, required this.isCorrect});
 }
-

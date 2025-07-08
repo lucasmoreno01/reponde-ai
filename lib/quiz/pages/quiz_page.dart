@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responde_ai/quiz/pages/quiz_result_page.dart';
 import 'package:responde_ai/quiz/repositories/quiz_repository.dart';
 import 'package:responde_ai/shared/theme/color_theme.dart';
 
@@ -16,6 +17,7 @@ class _QuizPageState extends State<QuizPage> {
   int currentQuestionIndex = 0;
   Set<String> selectedAnswers = {};
   String? selectedAnswer;
+  int correctAnswers = 0;
 
   bool answered = false;
   @override
@@ -28,8 +30,27 @@ class _QuizPageState extends State<QuizPage> {
         ? selectedAnswers.length > 1
         : selectedAnswer != null);
 
-    void selectAnswer(String answerId) {
+    void calculateCorrectAnswers() {
+      if (isMultipleChoice) {
+        final correctAnswerIds = currentQuestion.answers
+            .where((answer) => answer.isCorrect)
+            .map((answer) => answer.id)
+            .toSet();
 
+        if (selectedAnswers.length == correctAnswerIds.length &&
+            selectedAnswers.difference(correctAnswerIds).isEmpty) {
+          correctAnswers++;
+        } // TODO pegar dinamicamente no factory
+      } else {
+        if (currentQuestion.answers.any(
+          (answer) => answer.id == selectedAnswer && answer.isCorrect,
+        )) {
+          correctAnswers++;
+        }
+      }
+    }
+
+    void selectAnswer(String answerId) {
       if (answered) return;
       setState(() {
         if (isMultipleChoice) {
@@ -53,7 +74,14 @@ class _QuizPageState extends State<QuizPage> {
           answered = false;
         });
       } else {
-        // TODO finalizar quiz
+        Navigator.pushNamed(
+          context,
+          QuizResultPage.routeName,
+          arguments: {
+            'correctAnswers': correctAnswers,
+            'totalQuestions': quiz.questions.length,
+          },
+        );
       }
     }
 
@@ -116,7 +144,7 @@ class _QuizPageState extends State<QuizPage> {
                     leading: isMultipleChoice
                         ? Checkbox(
                             value: isSelected,
-                            onChanged: (_) =>  selectAnswer(answer.id),
+                            onChanged: (_) => selectAnswer(answer.id),
                           )
                         : Radio<String>(
                             value: answer.id,
@@ -137,6 +165,7 @@ class _QuizPageState extends State<QuizPage> {
             ? FilledButton(
                 onPressed: markedOptions
                     ? () {
+                        calculateCorrectAnswers();
                         setState(() {
                           answered = true;
                         });
@@ -146,6 +175,7 @@ class _QuizPageState extends State<QuizPage> {
               )
             : FilledButton(
                 onPressed: nextQuestion,
+
                 child: Text(
                   currentQuestionIndex < quiz.questions.length - 1
                       ? 'Próxima Pergunta'

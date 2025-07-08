@@ -1,11 +1,9 @@
-
 import 'package:responde_ai/quiz/model/quiz_moldel.dart';
 
 final List<Quiz> quizzes = [
   Quiz(
     id: 'quiz1',
     title: 'General Knowledge',
-    correctQuantity: 3,
     questions: [
       Question(
         isMultipleChoice: true,
@@ -48,13 +46,12 @@ final List<Quiz> quizzes = [
   Quiz(
     id: 'quiz2',
     title: 'Science',
-    correctQuantity: 3,
     questions: [
       Question(
         isMultipleChoice: false,
         id: 'q1',
         question: 'What is H2O commonly known as?',
-        
+
         answers: [
           Answer(id: 'a1', answer: 'Water', isCorrect: true),
           Answer(id: 'a2', answer: 'Oxygen', isCorrect: false),
@@ -91,7 +88,6 @@ final List<Quiz> quizzes = [
   Quiz(
     id: 'quiz3',
     title: 'Mathematics',
-    correctQuantity: 3,
     questions: [
       Question(
         isMultipleChoice: false,
@@ -132,5 +128,4 @@ final List<Quiz> quizzes = [
     ],
   ),
 ];
-final List<String> test = [ 'w', 'w'];
-
+final List<String> test = ['w', 'w'];

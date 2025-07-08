@@ -40,6 +40,23 @@ class AppTheme {
           ),
         ),
       ),
+
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: ButtonStyle(
+          padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
+            EdgeInsets.symmetric(vertical: 16),
+          ),
+         
+          foregroundColor: WidgetStateProperty.all<Color>(
+            ColorTheme.secondary,
+          ),
+          shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+          ),
+        ),
+      ),
       inputDecorationTheme: const InputDecorationTheme(
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: ColorTheme.primary, width: 3.0),
