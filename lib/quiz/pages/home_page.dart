@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responde_ai/quiz/pages/quiz_code.dart';
 import 'package:responde_ai/quiz/pages/quiz_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -6,34 +7,42 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
-          spacing: 20,
-          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
               'Responde Ai!',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
+            SizedBox(height: 40),
 
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                onPressed: () =>
-                    Navigator.pushNamed(context, QuizPage.routeName),
-                child: Text('Responder um Quiz'),
-              ),
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton(
-                onPressed: () =>
-                    Navigator.pushNamed(context, QuizPage.routeName),
-                child: Text('Crie seu Quiz'),
-              ),
+            Column(
+              spacing: 20,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: FilledButton(
+                    onPressed: () =>
+                        Navigator.pushNamed(context,  QuizCode.routeName),
+                    child: Text('Responder um Quiz'),
+                  ),
+                ),
+             
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton(
+                    onPressed: () =>
+                        Navigator.pushNamed(context, QuizCode.routeName),
+                    child: Text('Crie seu Quiz'),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

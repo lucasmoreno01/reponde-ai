@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:responde_ai/quiz/model/quiz_model.dart';
 import 'package:responde_ai/quiz/pages/quiz_result_page.dart';
-import 'package:responde_ai/quiz/repositories/quiz_repository.dart';
+import 'package:responde_ai/quiz/repository/quiz_repository.dart';
+import 'package:responde_ai/shared/locator/service_locator.dart';
 import 'package:responde_ai/shared/theme/color_theme.dart';
 
 class QuizPage extends StatefulWidget {
@@ -11,19 +13,48 @@ class QuizPage extends StatefulWidget {
   State<QuizPage> createState() => _QuizPageState();
 }
 
-int currentQuestionIndex = 0;
-
 class _QuizPageState extends State<QuizPage> {
+  final quizzesRepository = getIt<QuizzesRepository>();
+  Quiz? quiz;
+  bool isLoading = true;
+  String? quizId;
+
   int currentQuestionIndex = 0;
   Set<String> selectedAnswers = {};
   String? selectedAnswer;
   int correctAnswers = 0;
-
   bool answered = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (quizId == null) {
+      final args = ModalRoute.of(context)!.settings.arguments as Map;
+      quizId = args['id'] as String;
+      loadQuiz();
+    }
+  }
+
+  Future<void> loadQuiz() async {
+    try {
+      final loadedQuiz = await quizzesRepository.getQuiz(quizId!);
+      setState(() {
+        quiz = loadedQuiz;
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() => isLoading = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final quiz = quizzes[0];
-    final currentQuestion = quiz.questions[currentQuestionIndex];
+    if (isLoading || quiz == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    final currentQuestion = quiz!.questions[currentQuestionIndex];
     final isMultipleChoice = currentQuestion.isMultipleChoice;
 
     final markedOptions = (isMultipleChoice
@@ -66,7 +97,7 @@ class _QuizPageState extends State<QuizPage> {
     }
 
     void nextQuestion() {
-      if (currentQuestionIndex < quiz.questions.length - 1) {
+      if (currentQuestionIndex < quiz!.questions.length - 1) {
         setState(() {
           currentQuestionIndex++;
           selectedAnswers = {};
@@ -79,7 +110,7 @@ class _QuizPageState extends State<QuizPage> {
           QuizResultPage.routeName,
           arguments: {
             'correctAnswers': correctAnswers,
-            'totalQuestions': quiz.questions.length,
+            'totalQuestions': quiz!.questions.length,
           },
         );
       }
@@ -87,7 +118,7 @@ class _QuizPageState extends State<QuizPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(quiz.title, style: TextStyle(fontWeight: FontWeight.w500)),
+        title: Text(quiz!.title, style: TextStyle(fontWeight: FontWeight.w500)),
         centerTitle: true,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
@@ -177,7 +208,7 @@ class _QuizPageState extends State<QuizPage> {
                 onPressed: nextQuestion,
 
                 child: Text(
-                  currentQuestionIndex < quiz.questions.length - 1
+                  currentQuestionIndex < quiz!.questions.length - 1
                       ? 'Próxima Pergunta'
                       : 'Finalizar Quiz',
                 ),

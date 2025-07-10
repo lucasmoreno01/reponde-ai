@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "181529093141",
+    "project_id": "app-responde-ai",
+    "storage_bucket": "app-responde-ai.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181529093141:android:f5932c1940446f249ada1c",
+        "android_client_info": {
+          "package_name": "com.example.responde_ai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiiipFU-0rG-MwFQfN1XIkXpPZI8XOBa4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

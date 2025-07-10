@@ -5,34 +5,51 @@ class AppTheme {
   static ThemeData appTheme(BuildContext context) {
     // final textTheme = TextStyleConfig.getTextTheme(context);
 
+    OutlineInputBorder _buildDefaultInputBorder({required Color color}) {
+      return OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: color),
+      );
+    }
+
     return ThemeData(
       useMaterial3: true,
       // textTheme: textTheme,
       // TODO COR DO BULLET E Chrckbox
       primaryColor: ColorTheme.primary,
       appBarTheme: const AppBarTheme(),
-      filledButtonTheme:  FilledButtonThemeData(
-        
+
+      inputDecorationTheme: InputDecorationTheme(
+        border: _buildDefaultInputBorder(color: ColorTheme.neutral400),
+        enabledBorder: _buildDefaultInputBorder(color: ColorTheme.neutral400),
+        errorBorder: _buildDefaultInputBorder(color: ColorTheme.wrong),
+        focusedBorder: _buildDefaultInputBorder(color: ColorTheme.secondary),
+        disabledBorder: _buildDefaultInputBorder(color: ColorTheme.neutral300),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        errorStyle: TextStyle(fontSize: 12, color: ColorTheme.wrong),
+        hintStyle: TextStyle(
+          fontSize: 16,
+          color: ColorTheme.neutral500,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+      filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
           padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
-            EdgeInsets.symmetric( vertical: 16),
+            EdgeInsets.symmetric(vertical: 16),
           ),
-           backgroundColor: WidgetStateProperty.resolveWith<Color>(
-                (states) {
-                  if (states.contains(WidgetState.disabled)) {
-                  return ColorTheme.neutral400;
-                  }
-                  return ColorTheme.secondary;
-                },
-                ),
-                foregroundColor: WidgetStateProperty.resolveWith<Color>(
-                (states) {
-                  if (states.contains(WidgetState.disabled)) {
-                  return ColorTheme.neutral800;
-                  }
-                  return ColorTheme.neutral200;
-                } 
-                ),
+          backgroundColor: WidgetStateProperty.resolveWith<Color>((states) {
+            if (states.contains(WidgetState.disabled)) {
+              return ColorTheme.neutral400;
+            }
+            return ColorTheme.secondary;
+          }),
+          foregroundColor: WidgetStateProperty.resolveWith<Color>((states) {
+            if (states.contains(WidgetState.disabled)) {
+              return ColorTheme.neutral800;
+            }
+            return ColorTheme.neutral200;
+          }),
           shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -46,10 +63,8 @@ class AppTheme {
           padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
             EdgeInsets.symmetric(vertical: 16),
           ),
-         
-          foregroundColor: WidgetStateProperty.all<Color>(
-            ColorTheme.secondary,
-          ),
+
+          foregroundColor: WidgetStateProperty.all<Color>(ColorTheme.secondary),
           shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -57,18 +72,7 @@ class AppTheme {
           ),
         ),
       ),
-      inputDecorationTheme: const InputDecorationTheme(
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: ColorTheme.primary, width: 3.0),
-        ),
-        errorBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: ColorTheme.wrong, width: 3.0),
-        ),
-        focusedErrorBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: ColorTheme.wrong, width: 3.0),
-        ),
-        errorStyle: TextStyle(color: ColorTheme.wrong),
-      ),
+
       listTileTheme: ListTileThemeData(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),
