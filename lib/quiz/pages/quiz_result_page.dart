@@ -13,9 +13,18 @@ class QuizResultPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Center(
-          child: Text(
-            "Você acertou $correctAnswers de $totalQuestions questões!",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+              (correctAnswers/totalQuestions >= 0.5) ?  "Parabéns": "Não foi dessa vez",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+              ),
+              Text(
+                "Você acertou $correctAnswers de $totalQuestions questões!",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+              ),
+            ],
           ),
         ),
       ),
@@ -26,14 +35,8 @@ class QuizResultPage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-             SizedBox(
-              width: double.infinity,
-              child: OutlinedButton(
-                onPressed: () {},
-                child: Text('Refazer o Quiz'),
-              ),
-            ),
-            SizedBox(height: 20),
+        
+            SizedBox(height: 16),
             SizedBox(
               width: double.infinity,
               child: FilledButton(

@@ -1,13 +1,11 @@
 class Quiz {
-  final String id;
   final List<Question> questions;
   final String title;
 
-  Quiz({required this.id, required this.questions, required this.title});
+  Quiz({required this.questions, required this.title});
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'title': title,
       'questions': questions.map((q) => q.toMap()).toList(),
     };
@@ -15,7 +13,6 @@ class Quiz {
 
   factory Quiz.fromMap(Map<String, dynamic> map) {
     return Quiz(
-      id: map['id'].toString() ,
       title: map['title'] as String,
       questions: (map['questions'] as List)
           .map((q) => Question.fromMap(q as Map<String, dynamic>))
@@ -58,30 +55,22 @@ class Question {
   }
 }
 
-
-
-
 class Answer {
   final String id;
   final String answer;
-  final bool isCorrect;
+  bool? isCorrect;
 
-  Answer({required this.id, required this.answer, required this.isCorrect});
+  Answer({required this.id, required this.answer, this.isCorrect = false});
 
-    Map<String, dynamic> toMap() {
-      return {
-        'id': id,
-        'answer': answer,
-        'isCorrect': isCorrect,
-      };
-    }
+  Map<String, dynamic> toMap() {
+    return {'id': id, 'answer': answer, 'isCorrect': isCorrect};
+  }
 
-    factory Answer.fromMap(Map<String, dynamic> map) {
-      return Answer(
-        id: map['id'].toString(),
-        answer: map['answer'] as String,
-        isCorrect: map['isCorrect'] as bool,
-      );
-    }
+  factory Answer.fromMap(Map<String, dynamic> map) {
+    return Answer(
+      id: map['id'].toString(),
+      answer: map['answer'] as String,
+      isCorrect: map['isCorrect'] as bool,
+    );
+  }
 }
-

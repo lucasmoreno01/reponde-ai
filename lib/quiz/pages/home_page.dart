@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:responde_ai/quiz/pages/create_quiz_page.dart';
 import 'package:responde_ai/quiz/pages/quiz_code.dart';
-import 'package:responde_ai/quiz/pages/quiz_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
                   width: double.infinity,
                   child: OutlinedButton(
                     onPressed: () =>
-                        Navigator.pushNamed(context, QuizCode.routeName),
+                        Navigator.pushNamed(context, CreateQuizPage.routeName),
                     child: Text('Crie seu Quiz'),
                   ),
                 ),

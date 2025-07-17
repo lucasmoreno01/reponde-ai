@@ -64,7 +64,7 @@ class _QuizPageState extends State<QuizPage> {
     void calculateCorrectAnswers() {
       if (isMultipleChoice) {
         final correctAnswerIds = currentQuestion.answers
-            .where((answer) => answer.isCorrect)
+            .where((answer) => answer.isCorrect!)
             .map((answer) => answer.id)
             .toSet();
 
@@ -74,7 +74,7 @@ class _QuizPageState extends State<QuizPage> {
         } // TODO pegar dinamicamente no factory
       } else {
         if (currentQuestion.answers.any(
-          (answer) => answer.id == selectedAnswer && answer.isCorrect,
+          (answer) => answer.id == selectedAnswer && answer.isCorrect!,
         )) {
           correctAnswers++;
         }
@@ -150,14 +150,14 @@ class _QuizPageState extends State<QuizPage> {
                 Color answerColor;
                 if (isSelected) {
                   if (answered) {
-                    answerColor = answer.isCorrect
+                    answerColor = answer.isCorrect!
                         ? ColorTheme.correct
                         : ColorTheme.wrong;
                   } else {
                     answerColor = ColorTheme.tertiary;
                   }
                 } else {
-                  if (answered && answer.isCorrect) {
+                  if (answered && answer.isCorrect!) {
                     answerColor = ColorTheme.neutral600;
                   } else {
                     answerColor = ColorTheme.neutral200;
