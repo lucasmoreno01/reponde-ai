@@ -71,7 +71,7 @@ class _QuizPageState extends State<QuizPage> {
         if (selectedAnswers.length == correctAnswerIds.length &&
             selectedAnswers.difference(correctAnswerIds).isEmpty) {
           correctAnswers++;
-        } // TODO pegar dinamicamente no factory
+        }
       } else {
         if (currentQuestion.answers.any(
           (answer) => answer.id == selectedAnswer && answer.isCorrect!,

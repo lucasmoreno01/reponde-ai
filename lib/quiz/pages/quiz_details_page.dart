@@ -64,17 +64,34 @@ class _QuizDetailsPageState extends State<QuizDetailsPage> {
                   ...answers.map((answer) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10),
-                      child: ListTile(
-                        tileColor: answer.isCorrect!
-                            ? ColorTheme.correct
-                            : ColorTheme.neutral200,
-                        title: Text(answer.answer),
-
-                        onTap: () {
+                      child: Dismissible(
+                        key: ValueKey(answer.id),
+                        direction: DismissDirection.endToStart,
+                        background: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                            color: ColorTheme.wrong,
+                          ),
+                          alignment: Alignment.centerRight,
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Icon(Icons.delete, color: Colors.white),
+                        ),
+                        onDismissed: (direction) {
                           setState(() {
-                            answer.isCorrect = !answer.isCorrect!;
+                            answers.remove(answer);
                           });
                         },
+                        child: ListTile(
+                          tileColor: answer.isCorrect!
+                              ? ColorTheme.correct
+                              : ColorTheme.neutral200,
+                          title: Text(answer.answer),
+                          onTap: () {
+                            setState(() {
+                              answer.isCorrect = !answer.isCorrect!;
+                            });
+                          },
+                        ),
                       ),
                     );
                   }),

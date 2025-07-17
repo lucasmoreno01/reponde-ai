@@ -3,9 +3,8 @@ import 'package:responde_ai/shared/theme/color_theme.dart';
 
 class AppTheme {
   static ThemeData appTheme(BuildContext context) {
-    // final textTheme = TextStyleConfig.getTextTheme(context);
 
-    OutlineInputBorder _buildDefaultInputBorder({required Color color}) {
+    OutlineInputBorder buildDefaultInputBorder({required Color color}) {
       return OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide(color: color),
@@ -14,17 +13,16 @@ class AppTheme {
 
     return ThemeData(
       useMaterial3: true,
-      // textTheme: textTheme,
-      // TODO COR DO BULLET E Chrckbox
+     
       primaryColor: ColorTheme.primary,
       appBarTheme: const AppBarTheme(),
 
       inputDecorationTheme: InputDecorationTheme(
-        border: _buildDefaultInputBorder(color: ColorTheme.neutral400),
-        enabledBorder: _buildDefaultInputBorder(color: ColorTheme.neutral400),
-        errorBorder: _buildDefaultInputBorder(color: ColorTheme.wrong),
-        focusedBorder: _buildDefaultInputBorder(color: ColorTheme.secondary),
-        disabledBorder: _buildDefaultInputBorder(color: ColorTheme.neutral300),
+        border: buildDefaultInputBorder(color: ColorTheme.neutral400),
+        enabledBorder: buildDefaultInputBorder(color: ColorTheme.neutral400),
+        errorBorder: buildDefaultInputBorder(color: ColorTheme.wrong),
+        focusedBorder: buildDefaultInputBorder(color: ColorTheme.secondary),
+        disabledBorder: buildDefaultInputBorder(color: ColorTheme.neutral300),
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         errorStyle: TextStyle(fontSize: 12, color: ColorTheme.wrong),
         hintStyle: TextStyle(
